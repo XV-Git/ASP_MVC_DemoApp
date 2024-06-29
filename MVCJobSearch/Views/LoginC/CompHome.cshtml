@@ -1,0 +1,87 @@
+﻿@model MVCJobSearch.Models.JobInsertM
+@{
+    ViewBag.Title = "CompHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><b>Welcome - Enter Job Details</b></h2>
+
+<div style="background-color:azure">
+    @using (Html.BeginForm("Comp_Click", "LoginC", FormMethod.Post))
+
+    {<table class="table table-bordered">
+            <tr>
+                <td>
+                    <div>
+                        <label>Job Title</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Job_Title)
+                        @Html.ValidationMessageFor(m => m.Job_Title)
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <label>Experience</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Job_Exp)
+                        @Html.ValidationMessageFor(m => m.Job_Exp)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>SkillSet</label>
+                    </div>
+                <td>
+                    <div>
+                        @foreach (var item in ViewBag.seljoblist)
+                        {
+                            <input type="checkbox" value="@item.Text" checked="@item.isChecked" name="selectskkillset" id="@item.Value" /> @Html.Raw(@item.Text)
+                        }
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Vacancy</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Job_Vacancy)
+                        @Html.ValidationMessageFor(m => m.Job_Vacancy)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="submit" value="Add Job" class="btn-success col-lg-6" />
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DisplayFor(m => m.Jmsg)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+
+
+

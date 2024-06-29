@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "RegisterLanding_Pageload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Select Your Role</h2>
+<div>
+    <table align="center">
+        <tr>
+            <td>
+                <a href="@Url.Action("CompanyReg_Pageload","CompanyRegC")"><img src="@Url.Content("~/Image/Company.png")" alt="Company Registration" height="120" width="150" /></a>
+            </td>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </td>
+            <td>
+                <a href="@Url.Action("UserReg_Pageload","UserRegC")"><img src="@Url.Content("~/Image/User.png")" alt="User Registration" height="120" width="150" /></a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label><b>COMPANY REGISTRATION</b></label>
+            </td>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </td>
+            <td>
+                <label><b>USER REGISTRATION</b></label>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+

@@ -1,0 +1,132 @@
+﻿@model MVCJobSearch.Models.CompanyRegM
+@{
+    ViewBag.Title = "CompanyReg_Pageload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Company Registration</h2>
+
+<div style="background-color:azure">
+    @using (Html.BeginForm("CompanyReg_Click", "CompanyRegC", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {<table class="table table-bordered">
+            <tr>
+                <td>
+                    <div>
+                        <label>Name</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Comp_Name)
+                        @Html.ValidationMessageFor(m => m.Comp_Name)
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <label>Address</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextAreaFor(m => m.Comp_Address)
+                        @Html.ValidationMessageFor(m => m.Comp_Address)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Phone</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Comp_Phone)
+                        @Html.ValidationMessageFor(m => m.Comp_Phone)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Website</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Comp_Website)
+                        @Html.ValidationMessageFor(m => m.Comp_Website)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <label>Username</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Username)
+                        @Html.ValidationMessageFor(m => m.Username)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Password</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Confirm Password</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.PasswordFor(m => m.CPassword)
+                        @Html.ValidationMessageFor(m => m.CPassword)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <input type="submit" value="Register" class="btn-success col-lg-6" />
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DisplayFor(m => m.compmsg)
+                    </div>
+                </td>
+            </tr>
+    <tr>
+        <td>
+            @Html.ActionLink("Back to Login", "Index", "Home")
+        </td>
+    </tr>
+        </table>
+    }
+</div>
+
+
+

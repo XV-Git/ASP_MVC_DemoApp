@@ -1,0 +1,66 @@
+﻿@model MVCJobSearch.Models.SearchQryM
+
+@{
+    ViewBag.Title = "Search_Click";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search Jobs</h2>
+
+@using (Html.BeginForm("Search_Click", "SearchC", FormMethod.Post))
+{
+    <div>
+        <table class="table">
+            <tr>
+                <td>
+                    Skills
+                    @Html.TextBoxFor(m => m.insertse.skills)
+                </td>
+                <td>
+                    Experience
+                    @Html.TextBoxFor(m => m.insertse.experience)
+                </td>
+                <td>
+                    Job Title
+                    @Html.TextBoxFor(m => m.insertse.Job_Title)
+                </td>
+                <td>
+                    <input type="submit" value="Search" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@using (Html.BeginForm("Search_PageLoad", "SearchC", FormMethod.Get))
+{
+    <table class="table table-bordered">
+        <tr>
+            <td>Company ID</td>
+            <td>Job Title</td>
+            <td>Experience</td>
+            <td>Skills</td>
+            <td>Vacancy</td>
+            <td>Last Date</td>
+        </tr>
+
+        @foreach (var item in ViewBag.alldata)
+        {
+            <tr>
+                <td>@item.Comp_ID</td>
+                <td>@item.Job_Title</td>
+                <td>@item.Job_Exp</td>
+                <td>@item.Job_Skills</td>
+                <td>@item.Job_Vacancy</td>
+                <td>@item.Date</td>
+                <td>
+                    @Html.ActionLink("Apply", "ApplyJobC_PageLoad", "ApplyJobC", new { cid = item.Comp_ID, jid = item.Job_ID }, null)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+
+

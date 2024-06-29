@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Vault2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="App_Table">
+          <Key>
+            <PropertyRef Name="App_ID" />
+          </Key>
+          <Property Name="App_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Comp_ID" Type="int" Nullable="false" />
+          <Property Name="Job_ID" Type="int" Nullable="false" />
+          <Property Name="CV" Type="varchar(max)" Nullable="false" />
+          <Property Name="App_Date" Type="date" Nullable="false" />
+          <Property Name="App_Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company_Reg">
+          <Key>
+            <PropertyRef Name="Comp_ID" />
+          </Key>
+          <Property Name="Comp_ID" Type="int" Nullable="false" />
+          <Property Name="Comp_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Comp_Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Comp_Phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Comp_Website" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job_Table">
+          <Key>
+            <PropertyRef Name="Job_ID" />
+          </Key>
+          <Property Name="Job_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comp_ID" Type="int" Nullable="false" />
+          <Property Name="Job_Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Job_Exp" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Job_Skills" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Job_Vacancy" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Job_Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Log_ID" />
+          </Key>
+          <Property Name="Log_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reg_ID" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Log_Type" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Reg">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="User_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Age" Type="int" Nullable="false" />
+          <Property Name="User_Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="User_Phone" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="User_Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Gender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Qual" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Exp" Type="int" Nullable="false" />
+          <Property Name="User_Skills" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Photo" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="User_CV" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Function Name="SP_AllUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_ApplicationInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uid" Type="int" Mode="In" />
+          <Parameter Name="cid" Type="int" Mode="In" />
+          <Parameter Name="jid" Type="int" Mode="In" />
+          <Parameter Name="cv" Type="varchar(max)" Mode="In" />
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="stat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CompanyRegistration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="na" Type="varchar" Mode="In" />
+          <Parameter Name="addr" Type="varchar" Mode="In" />
+          <Parameter Name="ph" Type="varchar" Mode="In" />
+          <Parameter Name="web" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_GetCVDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_JobInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cid" Type="int" Mode="In" />
+          <Parameter Name="jtitle" Type="varchar" Mode="In" />
+          <Parameter Name="exp" Type="varchar" Mode="In" />
+          <Parameter Name="skill" Type="varchar" Mode="In" />
+          <Parameter Name="va" Type="int" Mode="In" />
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="stat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_JobResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+          <Parameter Name="s2" Type="varchar" Mode="In" />
+          <Parameter Name="s3" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_JobSearchQry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="qry" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_LoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="na" Type="varchar" Mode="In" />
+          <Parameter Name="pw" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_LoginIDGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="na" Type="varchar" Mode="In" />
+          <Parameter Name="pw" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_LoginInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rid" Type="int" Mode="In" />
+          <Parameter Name="una" Type="varchar" Mode="In" />
+          <Parameter Name="pwd" Type="varchar" Mode="In" />
+          <Parameter Name="stat" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_LoginMaxCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_LogType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="na" Type="varchar" Mode="In" />
+          <Parameter Name="pw" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+          <Parameter Name="s2" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+          <Parameter Name="s2" Type="varchar" Mode="In" />
+          <Parameter Name="s3" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS6" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+          <Parameter Name="s2" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserDataS7" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dat" Type="date" Mode="In" />
+          <Parameter Name="s1" Type="varchar" Mode="In" />
+          <Parameter Name="s2" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_UserRegistration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="na" Type="varchar" Mode="In" />
+          <Parameter Name="ag" Type="int" Mode="In" />
+          <Parameter Name="addr" Type="varchar" Mode="In" />
+          <Parameter Name="ph" Type="varchar" Mode="In" />
+          <Parameter Name="em" Type="varchar" Mode="In" />
+          <Parameter Name="gen" Type="varchar" Mode="In" />
+          <Parameter Name="qual" Type="varchar" Mode="In" />
+          <Parameter Name="exp" Type="int" Mode="In" />
+          <Parameter Name="skill" Type="varchar" Mode="In" />
+          <Parameter Name="img" Type="varchar" Mode="In" />
+          <Parameter Name="cv" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="Vault2ModelStoreContainer">
+          <EntitySet Name="App_Table" EntityType="Self.App_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company_Reg" EntityType="Self.Company_Reg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job_Table" EntityType="Self.Job_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Reg" EntityType="Self.User_Reg" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Vault2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="App_Table">
+          <Key>
+            <PropertyRef Name="App_ID" />
+          </Key>
+          <Property Name="App_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Comp_ID" Type="Int32" Nullable="false" />
+          <Property Name="Job_ID" Type="Int32" Nullable="false" />
+          <Property Name="CV" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="App_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="App_Status" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company_Reg">
+          <Key>
+            <PropertyRef Name="Comp_ID" />
+          </Key>
+          <Property Name="Comp_ID" Type="Int32" Nullable="false" />
+          <Property Name="Comp_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comp_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comp_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comp_Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job_Table">
+          <Key>
+            <PropertyRef Name="Job_ID" />
+          </Key>
+          <Property Name="Job_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comp_ID" Type="Int32" Nullable="false" />
+          <Property Name="Job_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Job_Exp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Job_Skills" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Job_Vacancy" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Job_Status" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Log_ID" />
+          </Key>
+          <Property Name="Log_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reg_ID" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Log_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Reg">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="User_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Age" Type="Int32" Nullable="false" />
+          <Property Name="User_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Phone" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Qual" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Exp" Type="Int32" Nullable="false" />
+          <Property Name="User_Skills" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Photo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_CV" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Vault2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="App_Table" EntityType="Self.App_Table" />
+          <EntitySet Name="Company_Reg" EntityType="Self.Company_Reg" />
+          <EntitySet Name="Job_Table" EntityType="Self.Job_Table" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="User_Reg" EntityType="Self.User_Reg" />
+          <FunctionImport Name="SP_AllUserData" ReturnType="Collection(Vault2Model.SP_AllUserData_Result)">
+          <Parameter Name="dat" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ApplicationInsert">
+            <Parameter Name="uid" Mode="In" Type="Int32" />
+            <Parameter Name="cid" Mode="In" Type="Int32" />
+            <Parameter Name="jid" Mode="In" Type="Int32" />
+            <Parameter Name="cv" Mode="In" Type="String" />
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="stat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CompanyRegistration">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="na" Mode="In" Type="String" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="ph" Mode="In" Type="String" />
+            <Parameter Name="web" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_JobInsert">
+            <Parameter Name="cid" Mode="In" Type="Int32" />
+            <Parameter Name="jtitle" Mode="In" Type="String" />
+            <Parameter Name="exp" Mode="In" Type="String" />
+            <Parameter Name="skill" Mode="In" Type="String" />
+            <Parameter Name="va" Mode="In" Type="Int32" />
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="stat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_JobResults" ReturnType="Collection(Vault2Model.SP_JobResults_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+            <Parameter Name="s2" Mode="In" Type="String" />
+            <Parameter Name="s3" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_JobSearchQry">
+          <Parameter Name="qry" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LoginCount" ReturnType="Collection(Int32)">
+            <Parameter Name="na" Mode="In" Type="String" />
+            <Parameter Name="pw" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LoginIDGet" ReturnType="Collection(Int32)">
+            <Parameter Name="na" Mode="In" Type="String" />
+            <Parameter Name="pw" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LoginInsert">
+            <Parameter Name="rid" Mode="In" Type="Int32" />
+            <Parameter Name="una" Mode="In" Type="String" />
+            <Parameter Name="pwd" Mode="In" Type="String" />
+            <Parameter Name="stat" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LoginMaxCount" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="SP_LogType" ReturnType="Collection(String)">
+            <Parameter Name="na" Mode="In" Type="String" />
+            <Parameter Name="pw" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS1" ReturnType="Collection(Vault2Model.SP_UserDataS1_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS2" ReturnType="Collection(Vault2Model.SP_UserDataS2_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+            <Parameter Name="s2" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS3" ReturnType="Collection(Vault2Model.SP_UserDataS3_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+            <Parameter Name="s2" Mode="In" Type="String" />
+            <Parameter Name="s3" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS4" ReturnType="Collection(Vault2Model.SP_UserDataS4_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS5" ReturnType="Collection(Vault2Model.SP_UserDataS5_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS6" ReturnType="Collection(Vault2Model.SP_UserDataS6_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+            <Parameter Name="s2" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserDataS7" ReturnType="Collection(Vault2Model.SP_UserDataS7_Result)">
+            <Parameter Name="dat" Mode="In" Type="DateTime" />
+            <Parameter Name="s1" Mode="In" Type="String" />
+            <Parameter Name="s2" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserRegistration">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="na" Mode="In" Type="String" />
+            <Parameter Name="ag" Mode="In" Type="Int32" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="ph" Mode="In" Type="String" />
+            <Parameter Name="em" Mode="In" Type="String" />
+            <Parameter Name="gen" Mode="In" Type="String" />
+            <Parameter Name="qual" Mode="In" Type="String" />
+            <Parameter Name="exp" Mode="In" Type="Int32" />
+            <Parameter Name="skill" Mode="In" Type="String" />
+            <Parameter Name="img" Mode="In" Type="String" />
+            <Parameter Name="cv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetCVDetails" ReturnType="Collection(String)">
+            <Parameter Name="uid" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_AllUserData_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_JobResults_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS1_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS2_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS3_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS4_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS5_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS6_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserDataS7_Result">
+          <Property Type="Int32" Name="Job_ID" Nullable="false" />
+          <Property Type="Int32" Name="Comp_ID" Nullable="false" />
+          <Property Type="String" Name="Job_Title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Exp" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Job_Skills" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Job_Vacancy" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Job_Status" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Vault2ModelStoreContainer" CdmEntityContainer="Vault2Entities">
+          <EntitySetMapping Name="App_Table">
+            <EntityTypeMapping TypeName="Vault2Model.App_Table">
+              <MappingFragment StoreEntitySet="App_Table">
+                <ScalarProperty Name="App_ID" ColumnName="App_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="CV" ColumnName="CV" />
+                <ScalarProperty Name="App_Date" ColumnName="App_Date" />
+                <ScalarProperty Name="App_Status" ColumnName="App_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company_Reg">
+            <EntityTypeMapping TypeName="Vault2Model.Company_Reg">
+              <MappingFragment StoreEntitySet="Company_Reg">
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Comp_Name" ColumnName="Comp_Name" />
+                <ScalarProperty Name="Comp_Address" ColumnName="Comp_Address" />
+                <ScalarProperty Name="Comp_Phone" ColumnName="Comp_Phone" />
+                <ScalarProperty Name="Comp_Website" ColumnName="Comp_Website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_Table">
+            <EntityTypeMapping TypeName="Vault2Model.Job_Table">
+              <MappingFragment StoreEntitySet="Job_Table">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="Vault2Model.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Log_ID" ColumnName="Log_ID" />
+                <ScalarProperty Name="Reg_ID" ColumnName="Reg_ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Log_Type" ColumnName="Log_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Reg">
+            <EntityTypeMapping TypeName="Vault2Model.User_Reg">
+              <MappingFragment StoreEntitySet="User_Reg">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="User_Age" ColumnName="User_Age" />
+                <ScalarProperty Name="User_Address" ColumnName="User_Address" />
+                <ScalarProperty Name="User_Phone" ColumnName="User_Phone" />
+                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
+                <ScalarProperty Name="User_Gender" ColumnName="User_Gender" />
+                <ScalarProperty Name="User_Qual" ColumnName="User_Qual" />
+                <ScalarProperty Name="User_Exp" ColumnName="User_Exp" />
+                <ScalarProperty Name="User_Skills" ColumnName="User_Skills" />
+                <ScalarProperty Name="User_Photo" ColumnName="User_Photo" />
+                <ScalarProperty Name="User_CV" ColumnName="User_CV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AllUserData" FunctionName="Vault2Model.Store.SP_AllUserData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_AllUserData_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ApplicationInsert" FunctionName="Vault2Model.Store.SP_ApplicationInsert" />
+          <FunctionImportMapping FunctionImportName="SP_CompanyRegistration" FunctionName="Vault2Model.Store.SP_CompanyRegistration" />
+          <FunctionImportMapping FunctionImportName="SP_JobInsert" FunctionName="Vault2Model.Store.SP_JobInsert" />
+          <FunctionImportMapping FunctionImportName="SP_JobResults" FunctionName="Vault2Model.Store.SP_JobResults">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_JobResults_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_JobSearchQry" FunctionName="Vault2Model.Store.SP_JobSearchQry" />
+          <FunctionImportMapping FunctionImportName="SP_LoginCount" FunctionName="Vault2Model.Store.SP_LoginCount" />
+          <FunctionImportMapping FunctionImportName="SP_LoginIDGet" FunctionName="Vault2Model.Store.SP_LoginIDGet" />
+          <FunctionImportMapping FunctionImportName="SP_LoginInsert" FunctionName="Vault2Model.Store.SP_LoginInsert" />
+          <FunctionImportMapping FunctionImportName="SP_LoginMaxCount" FunctionName="Vault2Model.Store.SP_LoginMaxCount" />
+          <FunctionImportMapping FunctionImportName="SP_LogType" FunctionName="Vault2Model.Store.SP_LogType" />
+          <FunctionImportMapping FunctionImportName="SP_UserDataS1" FunctionName="Vault2Model.Store.SP_UserDataS1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS1_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserDataS2" FunctionName="Vault2Model.Store.SP_UserDataS2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS2_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserDataS3" FunctionName="Vault2Model.Store.SP_UserDataS3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS3_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserDataS4" FunctionName="Vault2Model.Store.SP_UserDataS4">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS4_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserDataS5" FunctionName="Vault2Model.Store.SP_UserDataS5">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS5_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserDataS6" FunctionName="Vault2Model.Store.SP_UserDataS6">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS6_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserDataS7" FunctionName="Vault2Model.Store.SP_UserDataS7">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Vault2Model.SP_UserDataS7_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Comp_ID" ColumnName="Comp_ID" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Job_Exp" ColumnName="Job_Exp" />
+                <ScalarProperty Name="Job_Skills" ColumnName="Job_Skills" />
+                <ScalarProperty Name="Job_Vacancy" ColumnName="Job_Vacancy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Job_Status" ColumnName="Job_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserRegistration" FunctionName="Vault2Model.Store.SP_UserRegistration" />
+          <FunctionImportMapping FunctionImportName="SP_GetCVDetails" FunctionName="Vault2Model.Store.SP_GetCVDetails" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

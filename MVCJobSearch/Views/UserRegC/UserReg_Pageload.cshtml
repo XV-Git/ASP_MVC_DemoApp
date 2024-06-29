@@ -1,0 +1,234 @@
+﻿@model MVCJobSearch.Models.UserRegM
+@{
+    ViewBag.Title = "UserReg_Pageload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><b>User Registration Page</b></h2>
+<div style="background-color:azure">
+    @using (Html.BeginForm("UserReg_Click", "UserRegC", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {<table class="table table-bordered">
+            <tr>
+                <td>
+                    <div>
+                        <label>Name</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.User_Name)
+                        @Html.ValidationMessageFor(m => m.User_Name)
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <label>Age</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.User_Age)
+                        @Html.ValidationMessageFor(m => m.User_Age)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Address</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextAreaFor(m => m.User_Address)
+                        @Html.ValidationMessageFor(m => m.User_Address)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Phone</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.User_Phone)
+                        @Html.ValidationMessageFor(m => m.User_Phone)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Email</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.User_Email)
+                        @Html.ValidationMessageFor(m => m.User_Email)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Gender : </label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        Male
+                        @Html.RadioButtonFor(model => model.User_Gender, "Male") &nbsp &nbsp &nbsp
+                        Female
+                        @Html.RadioButtonFor(model => model.User_Gender, "Female")
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Qualification : </label>
+                    </div>
+                <td>
+                    <div>
+                        @foreach (var item in ViewBag.selQual)
+                        {
+                            <input type="checkbox" value="@item.Text" checked="@item.isChecked" name="SelectedQual" id="@item.Value" /> @Html.Raw(@item.Text)
+                        }
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Experience(In Years)</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.User_Exp)
+                        @Html.ValidationMessageFor(m => m.User_Exp)
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <div>
+                        <label>SkillSet</label>
+                    </div>
+                <td>
+                    <div>
+                        @foreach (var item in ViewBag.selSkill)
+                        {
+                            <input type="checkbox" value="@item.Text" checked="@item.isChecked" name="SelectedSkill" id="@item.Value" /> @Html.Raw(@item.Text)
+                        }
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Photo</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBox("files[0]", "", new { Type = "file" })
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Resume</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBox("files[1]", "", new { Type = "file" })
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Username</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.TextBoxFor(m => m.Username)
+                        @Html.ValidationMessageFor(m => m.Username)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Password</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <label>Confirm Password</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.PasswordFor(m => m.CPassword)
+                        @Html.ValidationMessageFor(m => m.CPassword)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div>
+                        <input type="submit" value="Register" class="btn-success col-lg-6" />
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DisplayFor(m => m.usrmsg)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.ActionLink("Back to Login", "Index", "Home")
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+

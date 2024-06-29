@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "ApplyJobC_PageLoad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Job Application Submission</h2>
+
+<div>
+    @using (Html.BeginForm("ApplyJobC_Click", "ApplyJobC", FormMethod.Post))
+    {
+        <table class="table" align="center">
+            <tr>
+                <td>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Confirm Submission" />
+                    @if (TempData["msg"] != null)
+                    {
+                        <script>
+                            alert('@TempData["msg"]')
+                        </script>
+                    }
+
+                </td>
+                <td>
+                    @Html.ActionLink("Go Back", "Search_PageLoad", "SearchC")
+
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+
+
